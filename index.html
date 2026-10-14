@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>학생 행동 누가기록장</title>
+  
+  <!-- 파비콘 설정 -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <style>
     :root {
       --primary: #4F46E5;
@@ -186,8 +190,8 @@
   </div>
 
   <script>
-    // ⚠️ 여기에 배포한 Google Apps Script 웹 앱 URL을 붙여넣으세요!
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzk5e1spAM3tEE3PcC03LjSQ-23qs3Bjbzw1bJM_q482pALIQq1zhoJxe4xWvEhFtL5/exec";
+    // ⚠️ 여기에 배포한 Google Apps Script 웹 앱 URL을 붙여넣어 주세요!
+    const GAS_WEB_APP_URL = "YOUR_GAS_WEB_APP_URL_HERE";
 
     const studentSelect = document.getElementById("studentSelect");
     const recordContent = document.getElementById("recordContent");
@@ -197,7 +201,7 @@
     const btnText = document.getElementById("btnText");
     const toast = document.getElementById("toast");
 
-    // 1. 학생 목록 불러오기
+    // 1. 학생 목록 불러오기 (GET)
     async function loadStudents() {
       try {
         const response = await fetch(GAS_WEB_APP_URL);
@@ -219,7 +223,7 @@
       }
     }
 
-    // 2. 폼 제출 및 기록 저장
+    // 2. 폼 제출 및 기록 저장 (POST)
     recordForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -256,14 +260,14 @@
       }
     });
 
-    // 로딩 상태 제어 함수
+    // 버튼 로딩 상태 표시 제어
     function setLoading(isLoading) {
       submitBtn.disabled = isLoading;
       spinner.style.display = isLoading ? "inline-block" : "none";
       btnText.textContent = isLoading ? "저장 중..." : "기록 저장하기";
     }
 
-    // 알림 메시지 표시 함수
+    // 결과 안내 토스트 메시지 표시
     function showToast(message, type) {
       toast.textContent = message;
       toast.className = `toast ${type}`;
@@ -273,7 +277,7 @@
       }, 3500);
     }
 
-    // 페이지 접속 시 명렬 로딩 실행
+    // 화면이 켜지면 학생 명단 자동 호출
     loadStudents();
   </script>
 </body>
